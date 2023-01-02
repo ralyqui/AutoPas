@@ -48,7 +48,7 @@ class VerletNeighborListAsBuild : public VerletNeighborListInterface<Particle>, 
                                                    dataLayout, useNewton3>(
         _baseLinkedCells->getCellBlock().getCellsPerDimensionWithHalo(), &generatorFunctor,
         _baseLinkedCells->getInteractionLength(), _baseLinkedCells->getCellBlock().getCellLength(), this);
-    _baseLinkedCells->iteratePairwise(&traversal);
+    _baseLinkedCells->iterate(&traversal);
   }
 
  public:

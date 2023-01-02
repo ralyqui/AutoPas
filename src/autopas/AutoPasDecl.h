@@ -96,7 +96,7 @@ class AutoPas {
   std::vector<Particle> resizeBox(const std::array<double, 3> &boxMin, const std::array<double, 3> &boxMax);
 
   /**
-   * Force the internal tuner to enter a new tuning phase upon the next call to iteratePairwise().
+   * Force the internal tuner to enter a new tuning phase upon the next call to iterate().
    */
   void forceRetune();
 
@@ -140,7 +140,7 @@ class AutoPas {
 
   /**
    * Deletes all particles.
-   * @note This invalidates the container, a rebuild is forced on the next iteratePairwise() call.
+   * @note This invalidates the container, a rebuild is forced on the next iterate() call.
    */
   void deleteAllParticles();
 
@@ -164,6 +164,15 @@ class AutoPas {
    */
   template <class Functor>
   bool iteratePairwise(Functor *f);
+
+  /**
+   * Function to iterate over all triplets of particles in the container.
+   * This function only handles short-range interactions.
+   * @param f Functor that describes the pair-potential.
+   * @return true if this was a tuning iteration.
+   */
+  template <class Functor>
+  bool iterateTriplets(Functor *f);
 
   /**
    * Iterate over all particles by using

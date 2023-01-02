@@ -127,10 +127,10 @@ class VerletClusterLists : public ParticleContainerInterface<Particle>, public i
     }
   }
 
-  void iteratePairwise(TraversalInterface *traversal) override {
+  void iterate(TraversalInterface *traversal) override {
     if (_isValid == ValidityState::cellsAndListsValid) {
       autopas::utils::ExceptionHandler::exception(
-          "VerletClusterLists::iteratePairwise(): Trying to do a pairwise iteration, even though verlet lists are not "
+          "VerletClusterLists::iterate(): Trying to do a pairwise iteration, even though verlet lists are not "
           "valid.");
     }
     auto *traversalInterface = dynamic_cast<VCLTraversalInterface<Particle> *>(traversal);
@@ -139,7 +139,7 @@ class VerletClusterLists : public ParticleContainerInterface<Particle>, public i
       traversalInterface->setTowers(_towers);
     } else {
       autopas::utils::ExceptionHandler::exception(
-          "Trying to use a traversal of wrong type in VerletClusterLists::iteratePairwise. TraversalID: {}",
+          "Trying to use a traversal of wrong type in VerletClusterLists::iterate. TraversalID: {}",
           traversal->getTraversalType());
     }
     if (auto *balancedTraversal = dynamic_cast<BalancedTraversal *>(traversal)) {

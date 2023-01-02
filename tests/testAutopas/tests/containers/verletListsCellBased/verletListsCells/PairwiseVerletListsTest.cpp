@@ -46,7 +46,7 @@ TEST_P(PairwiseVerletListsTest, testTwoParticles) {
                   verletLists.getCellLength());
 
     verletLists.rebuildNeighborLists(&traversal);
-    verletLists.iteratePairwise(&traversal);
+    verletLists.iterate(&traversal);
   }
 
   else {
@@ -56,7 +56,7 @@ TEST_P(PairwiseVerletListsTest, testTwoParticles) {
                   verletLists.getCellLength());
 
     verletLists.rebuildNeighborLists(&traversal);
-    verletLists.iteratePairwise(&traversal);
+    verletLists.iterate(&traversal);
   }
 
   std::vector<Particle *> list;
@@ -117,7 +117,7 @@ TEST_P(PairwiseVerletListsTest, testThreeParticlesOneFar) {
                   verletLists.getCellLength());
 
     verletLists.rebuildNeighborLists(&traversal);
-    verletLists.iteratePairwise(&traversal);
+    verletLists.iterate(&traversal);
   }
 
   else {
@@ -127,7 +127,7 @@ TEST_P(PairwiseVerletListsTest, testThreeParticlesOneFar) {
                   verletLists.getCellLength());
 
     verletLists.rebuildNeighborLists(&traversal);
-    verletLists.iteratePairwise(&traversal);
+    verletLists.iterate(&traversal);
   }
 
   std::vector<Particle *> list;
@@ -188,7 +188,7 @@ TEST_P(PairwiseVerletListsTest, testThreeParticlesClose) {
                   verletLists.getCellLength());
 
     verletLists.rebuildNeighborLists(&traversal);
-    verletLists.iteratePairwise(&traversal);
+    verletLists.iterate(&traversal);
   }
 
   else {
@@ -198,7 +198,7 @@ TEST_P(PairwiseVerletListsTest, testThreeParticlesClose) {
                   verletLists.getCellLength());
 
     verletLists.rebuildNeighborLists(&traversal);
-    verletLists.iteratePairwise(&traversal);
+    verletLists.iterate(&traversal);
   }
 
   std::vector<Particle *> list;
@@ -252,7 +252,7 @@ TEST_P(PairwiseVerletListsTest, testOneParticle) {
                   verletLists.getCellLength());
 
     verletLists.rebuildNeighborLists(&traversal);
-    verletLists.iteratePairwise(&traversal);
+    verletLists.iterate(&traversal);
   }
 
   else {
@@ -262,7 +262,7 @@ TEST_P(PairwiseVerletListsTest, testOneParticle) {
                   verletLists.getCellLength());
 
     verletLists.rebuildNeighborLists(&traversal);
-    verletLists.iteratePairwise(&traversal);
+    verletLists.iterate(&traversal);
   }
 
   std::vector<Particle *> list;
@@ -326,8 +326,8 @@ TEST_P(PairwiseVerletListsTest, SoAvsAoSLJ) {
 
     verletLists1.rebuildNeighborLists(&verletTraversal1);
     verletLists2.rebuildNeighborLists(&soaTraversal);
-    verletLists1.iteratePairwise(&verletTraversal1);
-    verletLists2.iteratePairwise(&soaTraversal);
+    verletLists1.iterate(&verletTraversal1);
+    verletLists2.iterate(&soaTraversal);
   }
 
   if (useNewton3) {
@@ -344,8 +344,8 @@ TEST_P(PairwiseVerletListsTest, SoAvsAoSLJ) {
 
     verletLists1.rebuildNeighborLists(&verletTraversal1);
     verletLists2.rebuildNeighborLists(&soaTraversal);
-    verletLists1.iteratePairwise(&verletTraversal1);
-    verletLists2.iteratePairwise(&soaTraversal);
+    verletLists1.iterate(&verletTraversal1);
+    verletLists2.iterate(&soaTraversal);
   }
 
   auto iter1 = verletLists1.begin();

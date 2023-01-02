@@ -175,7 +175,7 @@ class LinkedCellsReferences : public CellBasedParticleContainer<ReferenceParticl
     }
   }
 
-  void iteratePairwise(TraversalInterface *traversal) override {
+  void iterate(TraversalInterface *traversal) override {
     // Check if traversal is allowed for this container and give it the data it needs.
     auto *traversalInterface = dynamic_cast<LCTraversalInterface<ReferenceCell> *>(traversal);
     auto *cellPairTraversal = dynamic_cast<CellPairTraversal<ReferenceCell> *>(traversal);
@@ -186,7 +186,7 @@ class LinkedCellsReferences : public CellBasedParticleContainer<ReferenceParticl
       cellPairTraversal->setCellsToTraverse(this->_cells);
     } else {
       autopas::utils::ExceptionHandler::exception(
-          "Trying to use a traversal of wrong type in LinkedCellsReferences::iteratePairwise. TraversalID: {}",
+          "Trying to use a traversal of wrong type in LinkedCellsReferences::iterate. TraversalID: {}",
           traversal->getTraversalType());
     }
 

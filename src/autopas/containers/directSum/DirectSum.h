@@ -97,7 +97,7 @@ class DirectSum : public CellBasedParticleContainer<FullParticleCell<Particle>> 
 
   CellType getParticleCellTypeEnum() override { return CellType::FullParticleCell; }
 
-  void iteratePairwise(TraversalInterface *traversal) override {
+  void iterate(TraversalInterface *traversal) override {
     // Check if traversal is allowed for this container and give it the data it needs.
     auto *traversalInterface = dynamic_cast<DSTraversalInterface<ParticleCell> *>(traversal);
     auto *cellPairTraversal = dynamic_cast<CellPairTraversal<ParticleCell> *>(traversal);
@@ -105,7 +105,7 @@ class DirectSum : public CellBasedParticleContainer<FullParticleCell<Particle>> 
       cellPairTraversal->setCellsToTraverse(this->_cells);
     } else {
       autopas::utils::ExceptionHandler::exception(
-          "trying to use a traversal of wrong type in DirectSum::iteratePairwise");
+          "trying to use a traversal of wrong type in DirectSum::iterate");
     }
 
     traversal->initTraversal();

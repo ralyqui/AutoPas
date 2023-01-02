@@ -97,7 +97,7 @@ TEST_F(VarVerletListsTest, testVerletListBuild) {
       dummyTraversal(&emptyFunctor);
 
   verletLists.rebuildNeighborLists(&dummyTraversal);
-  verletLists.iteratePairwise(&dummyTraversal);
+  verletLists.iterate(&dummyTraversal);
 
   EXPECT_EQ(verletLists.getNumberOfNeighborPairs(), 1);
 }
@@ -125,7 +125,7 @@ TEST_F(VarVerletListsTest, testVerletList) {
   autopas::VVLAsBuildTraversal<FPCell, autopas::Particle, MFunctor, autopas::DataLayoutOption::aos, true>
       dummyTraversal(&mockFunctor);
   verletLists.rebuildNeighborLists(&dummyTraversal);
-  verletLists.iteratePairwise(&dummyTraversal);
+  verletLists.iterate(&dummyTraversal);
 
   EXPECT_EQ(verletLists.getNumberOfNeighborPairs(), 1);
 }
@@ -154,7 +154,7 @@ TEST_F(VarVerletListsTest, testVerletListInSkin) {
       dummyTraversal(&mockFunctor);
 
   verletLists.rebuildNeighborLists(&dummyTraversal);
-  verletLists.iteratePairwise(&dummyTraversal);
+  verletLists.iterate(&dummyTraversal);
 
   EXPECT_EQ(verletLists.getNumberOfNeighborPairs(), 1);
 }
@@ -182,9 +182,9 @@ TEST_F(VarVerletListsTest, testVerletListBuildTwice) {
       dummyTraversal(&emptyFunctor);
 
   verletLists.rebuildNeighborLists(&dummyTraversal);
-  verletLists.iteratePairwise(&dummyTraversal);
+  verletLists.iterate(&dummyTraversal);
 
-  verletLists.iteratePairwise(&dummyTraversal);
+  verletLists.iterate(&dummyTraversal);
 
   EXPECT_EQ(verletLists.getNumberOfNeighborPairs(), 1);
 }
@@ -215,7 +215,7 @@ TEST_F(VarVerletListsTest, testVerletListBuildFarAway) {
   autopas::VVLAsBuildTraversal<FPCell, autopas::Particle, MFunctor, autopas::DataLayoutOption::aos, true>
       dummyTraversal(&emptyFunctor);
   verletLists.rebuildNeighborLists(&dummyTraversal);
-  verletLists.iteratePairwise(&dummyTraversal);
+  verletLists.iterate(&dummyTraversal);
 
   EXPECT_EQ(verletLists.getNumberOfNeighborPairs(), 1);
 }
@@ -243,9 +243,9 @@ TEST_F(VarVerletListsTest, testVerletListBuildHalo) {
       dummyTraversal(&emptyFunctor);
 
   verletLists.rebuildNeighborLists(&dummyTraversal);
-  verletLists.iteratePairwise(&dummyTraversal);
+  verletLists.iterate(&dummyTraversal);
 
-  verletLists.iteratePairwise(&dummyTraversal);
+  verletLists.iterate(&dummyTraversal);
 
   EXPECT_EQ(verletLists.getNumberOfNeighborPairs(), 1);
 }

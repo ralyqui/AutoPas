@@ -84,13 +84,22 @@ template <class Particle>
 template <class Functor>
 bool AutoPas<Particle>::iteratePairwise(Functor *f) {
   static_assert(not std::is_same<Functor, autopas::Functor<Particle, Functor>>::value,
-                "The static type of Functor in iteratePairwise is not allowed to be autopas::Functor. Please use the "
+                "The static type of Functor in iterate is not allowed to be autopas::Functor. Please use the "
                 "derived type instead, e.g. by using a dynamic_cast.");
   if (f->getCutoff() > this->getCutoff()) {
     utils::ExceptionHandler::exception("Functor cutoff ({}) must not be larger than container cutoff ({})",
                                        f->getCutoff(), this->getCutoff());
   }
   return _logicHandler->iteratePairwise(f);
+}
+
+template <class Particle>
+template <class Functor>
+bool AutoPas<Particle>::iterateTriplets(Functor *f) {
+  static_assert(not std::is_same<Functor, autopas::Functor<Particle, Functor>>::value,
+                "The static type of Functor in iterateTriplets is not allowed to be autopas::TripletFunctor. Please use the "
+                "derived type instead, e.g. by using a dynamic_cast.");
+  return _logicHandler->iterateTriplets(f);
 }
 
 template <class Particle>

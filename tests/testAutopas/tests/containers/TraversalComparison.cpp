@@ -145,7 +145,7 @@ std::tuple<std::vector<std::array<double, 3>>, TraversalComparison::Globals> Tra
   }
 
   functor.initTraversal();
-  container->iteratePairwise(traversal.get());
+  container->iterate(traversal.get());
   functor.endTraversal(newton3Option);
 
   std::vector<std::array<double, 3>> forces(numMolecules);

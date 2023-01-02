@@ -18,7 +18,7 @@ inline namespace options {
 class TraversalOption : public Option<TraversalOption> {
  public:
   /**
-   * Possible choices for the cell pair traversal. Try to maintain lexicographic ordering.
+   * Possible choices for the cell traversal. Try to maintain lexicographic ordering.
    */
   enum Value {
     // DirectSum Traversals:

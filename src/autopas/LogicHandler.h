@@ -262,7 +262,7 @@ class LogicHandler {
   }
 
   /**
-   * @copydoc AutoPas::iteratePairwise()
+   * @copydoc AutoPas::iterate()
    */
   template <class Functor>
   bool iteratePairwise(Functor *f) {
@@ -276,6 +276,18 @@ class LogicHandler {
       _stepsSinceLastListRebuild = 0;
     }
     ++_stepsSinceLastListRebuild;
+
+    return result;
+  }
+
+  /**
+   * @copydoc AutoPas::iterateTriplets()
+   */
+  template <class Functor>
+  bool iterateTriplets(Functor *f) {
+    const bool doRebuild = not neighborListsAreValid();
+
+    bool result = _autoTuner.iterateTriplets(f, doRebuild, _particleBuffer, _haloParticleBuffer);
 
     return result;
   }

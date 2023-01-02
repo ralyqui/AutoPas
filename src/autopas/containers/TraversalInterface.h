@@ -59,6 +59,11 @@ class TraversalInterface {
    * Traverses all particle pairs.
    */
   virtual void traverseParticlePairs() = 0;
+
+  /**
+   * Traverse all particle triplets.
+   */
+  virtual void traverseParticleTriplets() = 0;
 };
 
 }  // namespace autopas

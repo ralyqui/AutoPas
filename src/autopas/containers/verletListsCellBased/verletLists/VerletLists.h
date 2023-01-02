@@ -73,7 +73,7 @@ class VerletLists : public VerletListsLinkedBase<Particle> {
    */
   [[nodiscard]] ContainerOption getContainerType() const override { return ContainerOption::verletLists; }
 
-  void iteratePairwise(TraversalInterface *traversal) override {
+  void iterate(TraversalInterface *traversal) override {
     // Check if traversal is allowed for this container and give it the data it needs.
     auto *verletTraversalInterface = dynamic_cast<VLTraversalInterface<LinkedParticleCell> *>(traversal);
     if (verletTraversalInterface) {
@@ -81,7 +81,7 @@ class VerletLists : public VerletListsLinkedBase<Particle> {
                                                          _soaNeighborLists);
     } else {
       autopas::utils::ExceptionHandler::exception(
-          "trying to use a traversal of wrong type in VerletLists::iteratePairwise");
+          "trying to use a traversal of wrong type in VerletLists::iterate");
     }
 
     traversal->initTraversal();
@@ -131,7 +131,7 @@ class VerletLists : public VerletListsLinkedBase<Particle> {
                              DataLayoutOption::aos, theBool>(
                   this->_linkedCells.getCellBlock().getCellsPerDimensionWithHalo(), &f, this->getInteractionLength(),
                   this->_linkedCells.getCellBlock().getCellLength());
-          this->_linkedCells.iteratePairwise(&traversal);
+          this->_linkedCells.iterate(&traversal);
         });
         break;
       }
@@ -142,7 +142,7 @@ class VerletLists : public VerletListsLinkedBase<Particle> {
                              DataLayoutOption::soa, theBool>(
                   this->_linkedCells.getCellBlock().getCellsPerDimensionWithHalo(), &f, this->getInteractionLength(),
                   this->_linkedCells.getCellBlock().getCellLength());
-          this->_linkedCells.iteratePairwise(&traversal);
+          this->_linkedCells.iterate(&traversal);
         });
         break;
       }

@@ -227,10 +227,10 @@ class ParticleContainerInterface {
   [[nodiscard]] constexpr bool end() const { return false; }
 
   /**
-   * Iterates over all particle pairs in the container.
+   * Iterates over all particles in the container, according to the selected traversal.
    * @param traversal The traversal to use for the iteration.
    */
-  virtual void iteratePairwise(TraversalInterface *traversal) = 0;
+  virtual void iterate(TraversalInterface *traversal) = 0;
 
   /**
    * Get the upper corner of the container.

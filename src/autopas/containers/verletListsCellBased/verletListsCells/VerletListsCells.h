@@ -97,7 +97,7 @@ class VerletListsCells : public VerletListsLinkedBase<Particle> {
     }
   }
 
-  void iteratePairwise(TraversalInterface *traversal) override {
+  void iterate(TraversalInterface *traversal) override {
     // Check if traversal is allowed for this container and give it the data it needs.
     _neighborList.setUpTraversal(traversal);
     if (auto *balancedTraversal = dynamic_cast<BalancedTraversal *>(traversal)) {

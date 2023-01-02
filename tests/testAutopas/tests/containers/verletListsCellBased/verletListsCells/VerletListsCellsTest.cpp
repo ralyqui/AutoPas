@@ -43,7 +43,7 @@ void applyFunctor(MockFunctor<Particle> &functor, const double cellSizefactor,
                 verletLists.getCellLength());
 
   verletLists.rebuildNeighborLists(&traversal);
-  verletLists.iteratePairwise(&traversal);
+  verletLists.iterate(&traversal);
 
   std::vector<Particle *> list;
   for (auto iter = verletLists.begin(autopas::IteratorBehavior::ownedOrHalo); iter.isValid(); ++iter) {
@@ -99,8 +99,8 @@ void soaTest(const double cellSizeFactor,
 
   verletLists1.rebuildNeighborLists(&verletTraversal1);
   verletLists2.rebuildNeighborLists(&soaTraversal);
-  verletLists1.iteratePairwise(&verletTraversal1);
-  verletLists2.iteratePairwise(&soaTraversal);
+  verletLists1.iterate(&verletTraversal1);
+  verletLists2.iterate(&soaTraversal);
 
   auto iter1 = verletLists1.begin();
   auto iter2 = verletLists2.begin();

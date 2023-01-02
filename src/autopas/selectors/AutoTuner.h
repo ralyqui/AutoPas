@@ -30,7 +30,7 @@
 namespace autopas {
 
 /**
- * Calls to the iteratePairwise() method are passed through this class for two reasons:
+ * Calls to the iteration methods are passed through this class for two reasons:
  * 1. Measuring time of the iteration.
  * 2. Selecting an appropriate configuration for the pairwise iteration.
  *
@@ -163,11 +163,31 @@ class AutoTuner {
   bool iteratePairwise(PairwiseFunctor *f, bool doListRebuild, std::vector<std::vector<Particle>> &particleBuffers,
                        std::vector<std::vector<Particle>> &haloParticleBuffers);
 
+  /** @todo: Finish implementation
+   * Whole tuning logic for one iteration.
+   * This function covers:
+   *  - Instantiation of the traversal to be used.
+   *  - Actual triplets iteration for application of the functor.
+   *  - Management of tuning phases and calls to tune() if necessary. (not yet implemented)
+   *  - Measurement of timings and calls to addTimeMeasurement() if necessary. (not yet implemented)
+   *  - Calls to _iterationLogger if necessary. (not yet implemented)
+   *
+   * @tparam TripletFunctor
+   * @param f Functor that describes the triplet-potential.
+   * @param doListRebuild Indicates whether or not the verlet lists should be rebuild.
+   * @param particleBuffers A buffer of additional particles to consider.
+   * @param haloParticleBuffers A buffer of additional halo particles to consider.
+   * @return true if this was a tuning iteration.
+   */
+  template <class TripletFunctor>
+  bool iterateTriplets(TripletFunctor *f, bool doListRebuild, std::vector<std::vector<Particle>> &particleBuffers,
+                       std::vector<std::vector<Particle>> &haloParticleBuffers);
+
   /**
    * Returns whether the configuration will be changed in the next iteration.
    * This does does not necessarily mean that the container will change.
    *
-   * @return True if the next iteratePairwise() call uses a different configuration. False otherwise.
+   * @return True if the next iterate() call uses a different configuration. False otherwise.
    */
   bool willRebuild() {
     if (_tuningStrategy->searchSpaceIsTrivial()) {
@@ -451,8 +471,29 @@ bool AutoTuner<Particle>::iteratePairwise(PairwiseFunctor *f, bool doListRebuild
   return isTuning;
 }
 
+template <class Particle>
+template <class TripletFunctor>
+bool AutoTuner<Particle>::iterateTriplets(TripletFunctor *f, bool doListRebuild,
+                                          std::vector<std::vector<Particle>> &particleBuffers,
+                                          std::vector<std::vector<Particle>> &haloParticleBuffers) {
+  // Tuning not implemented for three-body interactions
+  bool isTuning = false;
+
+  const auto container = getContainer();
+
+  auto traversal = autopas::utils::withStaticCellType<Particle>(
+      container->getParticleCellTypeEnum(), [&](auto particleCellDummy) {
+        return TraversalSelector<decltype(particleCellDummy)>::template generateTraversal<TripletFunctor, DataLayoutOption::aos,
+                                                                                          false>(
+            _tuningStrategy->getCurrentConfiguration().traversal, *f, container->getTraversalSelectorInfo());
+      });
+
+
+  return isTuning;
+}
+
 /**
- * Performs the interactions ParticleContainer::iteratePairwise() did not cover.
+ * Performs the interactions ParticleContainer::iterate() did not cover.
  *
  * These interactions are:
  *  - particleBuffer    <-> container
@@ -594,7 +635,7 @@ void AutoTuner<Particle>::iteratePairwiseTemplateHelper(PairwiseFunctor *f, bool
     timerRebuild.stop();
   }
   timerIteratePairwise.start();
-  containerPtr->iteratePairwise(traversal.get());
+  containerPtr->iterate(traversal.get());
 
   doRemainderTraversal<useNewton3>(f, containerPtr, particleBuffer, haloParticleBuffer);
   timerIteratePairwise.stop();
