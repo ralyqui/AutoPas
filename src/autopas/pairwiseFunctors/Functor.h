@@ -87,21 +87,6 @@ class Functor {
   }
 
   /**
-   * Functor for arrays of structures in 3-body interactions (AoS).
-   *
-   * This functor should calculate the forces or any other interaction
-   * between three particles.
-   * This should include a cutoff check if needed!
-   * @param i Particle i
-   * @param j Particle j
-   * @param k Particle k
-   * @param newton3 defines whether or whether not to use newton 3
-   */
-  virtual void AoSTripletFunctor(Particle &i, Particle &j, Particle &k, bool newton3) {
-    utils::ExceptionHandler::exception("Functor::AoSTripletFunctor: not yet implemented");
-  }
-
-  /**
    * Get attributes needed for computation.
    * @return Attributes needed for computation.
    * @todo C++20: make this function virtual

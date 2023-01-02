@@ -26,7 +26,10 @@ class TraversalOption : public Option<TraversalOption> {
      * DSSequentialTraversal : Sequential double loop over all particles.
      */
     ds_sequential,
-
+    /**
+     *  DSTripletTraversal: Sequential loop over every particle triplet
+     */
+    ds_triplet,
     // LinkedCell Traversals:
     /**
      * LCC01Traversal : Every cell interacts with all neighbors. Is not compatible with Newton3 thus embarrassingly
