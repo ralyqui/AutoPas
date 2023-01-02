@@ -58,12 +58,16 @@ class TraversalInterface {
   /**
    * Traverses all particle pairs.
    */
-  virtual void traverseParticlePairs() = 0;
+  virtual void traverseParticlePairs() {
+    utils::ExceptionHandler::exception("Pairwise interaction not implemented for the selected traversal option");
+  }
 
   /**
    * Traverse all particle triplets.
    */
-  virtual void traverseParticleTriplets() = 0;
+  virtual void traverseParticleTriplets() {
+      utils::ExceptionHandler::exception("Three body interactions not implemented for the selected traversal option");
+  };
 };
 
 }  // namespace autopas
