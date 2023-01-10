@@ -26,5 +26,9 @@ class DirectSumTriplet: public CellBasedParticleContainer<FullParticleCell<Parti
     traversal->endTraversal();
   }
 
+  void addParticleImpl(const Particle &p) override {
+    this->_cells[0].addParticle(p);
+  }
+
 };
 }  // namespace autopas
