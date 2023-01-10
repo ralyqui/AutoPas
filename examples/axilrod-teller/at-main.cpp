@@ -7,10 +7,11 @@
 #include <iostream>
 
 #include "autopas/AutoPas.h"
+#include "autopas/molecularDynamics/ATFunctor.h"
+#include "autopas/molecularDynamics/MoleculeAT.h"
 #include "autopasTools/generators/RandomGenerator.h"
-#include "autopas/molecularDynamics/LJFunctor.h"
 
-using Particle = autopas::MoleculeLJ<>;
+using Particle = autopas::MoleculeAT;
 using AutoPasContainer = autopas::AutoPas<Particle>;
 
 void fillParticleContainer(AutoPasContainer &container) {
@@ -36,11 +37,10 @@ int main() {
 
   int numIterations = 100;
   double cutoff = 1.;
-  autopas::LJFunctor<Particle> functor(cutoff);
+  autopas::ATFunctor<Particle> functor(cutoff, 0);
   for(int i = 0; i < numIterations; i++) {
-        autopas.iteratePairwise(&functor);
+        autopas.iterateTriplets(&functor);
   }
-
 
   return 0;
 }

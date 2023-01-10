@@ -41,9 +41,16 @@ class TripletFunctor {
    * @param k Particle k
    * @param newton3 defines whether or whether not to use newton 3
    */
-  virtual void AoSTripletFunctor(Particle &i, Particle &j, Particle &k, bool newton3) {
+  virtual void AoSFunctor(Particle &i, Particle &j, Particle &k, bool newton3) {
     utils::ExceptionHandler::exception("Functor::AoSTripletFunctor: not yet implemented");
   }
+
+  template <class ParticleCell, class SoAArraysType>
+  void SoALoader(ParticleCell &cell, SoA<SoAArraysType> &soa, size_t offset) {}
+
+  template <typename ParticleCell, class SoAArraysType>
+  void SoAExtractor(ParticleCell &cell, SoA<SoAArraysType> &soa, size_t offset) {}
+
  private:
   double _cutoff;
 };

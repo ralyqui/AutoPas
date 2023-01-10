@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "autopas/pairwiseFunctors/Functor.h"
+#include "autopas/tripletFunctors/TripletFunctor.h"
 #include "autopas/utils/ArrayMath.h"
 
 namespace autopas {
@@ -16,8 +16,8 @@ namespace autopas {
  * @tparam Particle The type of the particle.
  * @tparam useNewton3 Switch for the functor to support newton3 on, off or both. See FunctorN3Modes for possible values.
  */
-template <class Particle, FunctorN3Modes useNewton3 = FunctorN3Modes::Both>
-class ATFunctor : public Functor<Particle, ATFunctor<Particle, useNewton3>> {
+template <class Particle>
+class ATFunctor : public TripletFunctor<Particle> {
   /**
    * Structure of the SoAs defined by the particle.
    */
@@ -31,26 +31,26 @@ class ATFunctor : public Functor<Particle, ATFunctor<Particle, useNewton3>> {
    * @param ATParameter
    */
   explicit ATFunctor(double cutoff, double ATParameter)
-      : Functor<Particle, ATFunctor<Particle, useNewton3>>(cutoff),
+      : TripletFunctor<Particle>(cutoff),
         _cutoffSquared{cutoff * cutoff},
         _ATParameter{ATParameter} {}
 
-  /**
-   * @copydoc Functor::allowsNewton3()
-   */
-  bool allowsNewton3() final override { return false; };
+//  /**
+//   * @copydoc Functor::allowsNewton3()
+//   */
+//  bool allowsNewton3() final { return false; };
+//
+//  /**
+//   * @copydoc Functor::allowsNonNewton3()
+//   */
+//  bool allowsNonNewton3() final { return true; };
+//
+//  /**
+//   * @copydoc Functor::isRelevantForTuning()
+//   */
+//  bool isRelevantForTuning() final { return false; };
 
-  /**
-   * @copydoc Functor::allowsNonNewton3()
-   */
-  bool allowsNonNewton3() final override { return true; };
-
-  /**
-   * @copydoc Functor::isRelevantForTuning()
-   */
-  bool isRelevantForTuning() final override { return false; };
-
-  void AoSTripletFunctor(Particle &i, Particle &j, Particle &k, bool newton3) final override {
+  void AoSFunctor(Particle &i, Particle &j, Particle &k, bool newton3) final {
     if (newton3) {
       utils::ExceptionHandler::exception("Newton3 not currently supported for three-body interactions");
     }

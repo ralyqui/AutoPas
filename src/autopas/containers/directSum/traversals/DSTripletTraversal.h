@@ -39,7 +39,7 @@ class DSTripletTraversal : public TraversalInterface {
   void endTraversal() override{};
 
  private:
-  autopas::TripletCellFunctor<typename ParticleCell::ParticleType, typename ParticleCell::ParticleType, Functor,
+  autopas::TripletCellFunctor<typename ParticleCell::ParticleType, ParticleCell, Functor,
                               useNewton3>
       _tripletCellFunctor;
 

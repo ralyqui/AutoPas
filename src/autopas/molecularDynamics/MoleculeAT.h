@@ -24,6 +24,8 @@ class MoleculeAT final : public Particle {
    */
   explicit MoleculeAT(std::array<double, 3> pos, std::array<double, 3> v, unsigned long moleculeId)
       : Particle(pos, v, moleculeId){};
+
+
 };
 
 }  // namespace autopas
